@@ -6,7 +6,6 @@ import { TextInput } from './TextInput';
 import { SelectInput } from './SelectInput';
 import { ImageOption } from './ImageOption';
 import { Button } from './Button';
-import { CreateButton } from './CreateButton';
 
 interface SettingsPanelProps {
   preview: Preview;
@@ -25,8 +24,6 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 
   return (
     <div>
-      <CreateButton preview={props.preview} />
-
       <Group>
         <GroupTitle>Intro</GroupTitle>
         <TextInput
