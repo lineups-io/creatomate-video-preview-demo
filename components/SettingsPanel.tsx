@@ -12,6 +12,31 @@ interface SettingsPanelProps {
   currentState?: PreviewState;
 }
 
+const pickFromObjectTree = (obj: any, pick: string): string[] => {
+  if (obj.name && obj.type) {
+    return [
+      {
+        name: obj.name,
+        type: obj.type,
+        text: obj.text,
+      },
+    ]
+
+  } else {
+    return Object.keys(obj).reduce((acc: string[], key: string) => {
+      const next = obj[key]
+      if (Object(next) === next) {
+        return [
+          ...acc,
+          ...pickFromObjectTree(next, pick),
+        ]
+      } else {
+        return acc
+      }
+    }, [])
+  }
+}
+
 export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   // In this variable, we store the modifications that are applied to the template
   // Refer to: https://creatomate.com/docs/api/rest-api/the-modifications-object
@@ -22,35 +47,20 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
     return props.currentState?.elements.filter((element) => element.source.name?.startsWith('Slide-'));
   }, [props.currentState]);
 
+  const variables = pickFromObjectTree(props.preview.state, 'name')
+  // TODO: dedup variables with the same name
+  // TODO: handle variables with image type
+  console.log('preview', variables)
+
   return (
     <div>
-      <Group>
-        <GroupTitle>Intro</GroupTitle>
-        <TextInput
-          placeholder="Lorem ipsum dolor sit amet"
-          onFocus={() => ensureElementVisibility(props.preview, 'Title', 1.5)}
-          onChange={(e) => setPropertyValue(props.preview, 'Title', e.target.value, modificationsRef.current)}
+      {variables.map(variable =>
+        <TextInput key={variable.name}
+          placeholder={variable.text}
+          onFocus={() => ensureElementVisibility(props.preview, variable.name, 0)}
+          onChange={(e) => setPropertyValue(props.preview, variable.name, e.target.value, modificationsRef.current)}
         />
-        <TextInput
-          placeholder="Enter your tagline here"
-          onFocus={() => ensureElementVisibility(props.preview, 'Tagline', 1.5)}
-          onChange={(e) => setPropertyValue(props.preview, 'Tagline', e.target.value, modificationsRef.current)}
-        />
-        <TextInput
-          placeholder="A second and longer text here ✌️"
-          onFocus={() => ensureElementVisibility(props.preview, 'Start-Text', 1.5)}
-          onChange={(e) => setPropertyValue(props.preview, 'Start-Text', e.target.value, modificationsRef.current)}
-        />
-      </Group>
-
-      <Group>
-        <GroupTitle>Outro</GroupTitle>
-        <TextInput
-          placeholder="Your Call To Action Here"
-          onFocus={() => ensureElementVisibility(props.preview, 'Final-Text', 1.5)}
-          onChange={(e) => setPropertyValue(props.preview, 'Final-Text', e.target.value, modificationsRef.current)}
-        />
-      </Group>
+      )}
 
       {slideElements?.map((slideElement, i) => {
         const transitionAnimation = slideElement.source.animations.find((animation: any) => animation.transition);
