@@ -12,7 +12,13 @@ interface SettingsPanelProps {
   currentState?: PreviewState;
 }
 
-const pickFromObjectTree = (obj: any, pick: string): string[] => {
+interface Variable {
+  name: string;
+  type: 'text' | 'image';
+  text?: string;
+}
+
+const pickFromObjectTree = (obj: any, pick: string): Variable[] => {
   if (obj.name && obj.type) {
     return [
       {
@@ -23,7 +29,7 @@ const pickFromObjectTree = (obj: any, pick: string): string[] => {
     ]
 
   } else {
-    return Object.keys(obj).reduce((acc: string[], key: string) => {
+    return Object.keys(obj).reduce((acc: Variable[], key: string) => {
       const next = obj[key]
       if (Object(next) === next) {
         return [
