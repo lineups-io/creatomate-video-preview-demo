@@ -5,7 +5,7 @@ import { useWindowWidth } from '../utility/useWindowWidth';
 import { SettingsPanel } from './SettingsPanel';
 
 interface Template {
-  templateId: string;
+  id: string;
 }
 
 const App: React.FC<Template> = (props: Template) => {
@@ -35,7 +35,7 @@ const App: React.FC<Template> = (props: Template) => {
 
     // Once the SDK is ready, load a template from our project
     preview.onReady = async () => {
-      await preview.loadTemplate(props.templateId);
+      await preview.loadTemplate(props.id);
       setIsReady(true);
     };
 

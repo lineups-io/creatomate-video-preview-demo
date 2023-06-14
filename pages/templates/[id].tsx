@@ -15,7 +15,7 @@ export default function Template() {
       </Head>
 
       {router.query.id
-        ? <PreviewEditor templateId={router.query.id} />
+        ? <PreviewEditor id={router.query.id} />
         : <div>Missing template ID</div>
       }
     </div>
