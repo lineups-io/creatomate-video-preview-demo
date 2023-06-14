@@ -18,7 +18,7 @@ interface Variable {
   text?: string;
 }
 
-const pickFromObjectTree = (obj: any, pick: string): Variable[] => {
+const pickFromObjectTree = (obj: any): Variable[] => {
   if (obj.dynamic) {
     return [
       {
@@ -34,7 +34,7 @@ const pickFromObjectTree = (obj: any, pick: string): Variable[] => {
       if (Object(next) === next) {
         return [
           ...acc,
-          ...pickFromObjectTree(next, pick),
+          ...pickFromObjectTree(next),
         ]
       } else {
         return acc
@@ -53,7 +53,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
     return props.currentState?.elements.filter((element) => element.source.name?.startsWith('Slide-'));
   }, [props.currentState]);
 
-  const variables = pickFromObjectTree(props.preview.state, 'name')
+  const variables = pickFromObjectTree(props.preview.state)
   // TODO: dedup variables with the same name
   // TODO: handle variables with image type
   console.log('preview', variables)
