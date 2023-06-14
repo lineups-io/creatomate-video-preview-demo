@@ -19,7 +19,7 @@ interface Variable {
 }
 
 const pickFromObjectTree = (obj: any, pick: string): Variable[] => {
-  if (obj.name && obj.type) {
+  if (obj.dynamic) {
     return [
       {
         name: obj.name,
