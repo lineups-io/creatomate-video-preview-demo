@@ -4,7 +4,11 @@ import { Preview, PreviewState } from '@creatomate/preview';
 import { useWindowWidth } from '../utility/useWindowWidth';
 import { SettingsPanel } from './SettingsPanel';
 
-const App: React.FC = () => {
+interface Template {
+  templateId: string;
+}
+
+const App: React.FC<Template> = (props: Template) => {
   // React Hook to update the component when the window width changes
   const windowWidth = useWindowWidth();
 
@@ -31,7 +35,7 @@ const App: React.FC = () => {
 
     // Once the SDK is ready, load a template from our project
     preview.onReady = async () => {
-      await preview.loadTemplate(process.env.NEXT_PUBLIC_TEMPLATE_ID!);
+      await preview.loadTemplate(props.templateId);
       setIsReady(true);
     };
 

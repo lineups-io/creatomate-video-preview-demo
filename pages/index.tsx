@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
-const App = dynamic(() => import('../components/App'), { ssr: false });
+const PreviewEditor = dynamic(() => import('../components/PreviewEditor'), { ssr: false });
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <App />
+      <PreviewEditor templateId='99e7a6ab-70cf-46be-b6fe-70efcc206206' />
     </div>
   );
 }
