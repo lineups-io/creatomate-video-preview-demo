@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 import { Template } from './PreviewEditor';
 
+interface ColumnProps {
+  loaded: boolean;
+}
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -14,7 +18,7 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-const Column = styled.div`
+const Column = styled.div<ColumnProps>`
   width: 200px;
 
   position: relative;
