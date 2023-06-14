@@ -4,8 +4,9 @@ import { Preview, PreviewState } from '@creatomate/preview';
 import { useWindowWidth } from '../utility/useWindowWidth';
 import { SettingsPanel } from './SettingsPanel';
 
-interface Template {
+export interface Template {
   id: string;
+  name?: string;
 }
 
 const App: React.FC<Template> = (props: Template) => {

@@ -4,10 +4,12 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import Link from 'next/link';
 
+const PreviewThumbnail = dynamic(() => import('../components/PreviewThumbnail'), { ssr: false });
 
 const Column = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   grid-gap: 20px;
   padding: 20px;
 
@@ -41,12 +43,7 @@ export default function Home() {
       </Head>
 
       <Column>
-        {data.map(({ id, name }) =>
-          <Link key={id} href={`/templates/${id}`}>
-            {name}
-            {/*<PreviewThumbnail templateId={id} />*/}
-          </Link>
-        )}
+        {data.map(template => <PreviewThumbnail key={template.id} {...template} />)}
       </Column>
     </div>
   );
