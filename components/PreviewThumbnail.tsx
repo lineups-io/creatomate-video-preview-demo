@@ -8,6 +8,10 @@ interface ColumnProps {
   loaded: boolean;
 }
 
+interface Render {
+  url: string;
+}
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -53,7 +57,7 @@ const Button = styled.div`
 `
 
 const PreviewThumbnail = ({ id, name }: Template) => {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<Render>()
 
   const fetchPreview = () => {
     if (data) return
