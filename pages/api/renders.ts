@@ -16,9 +16,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
       /** @type {import('creatomate').RenderOptions} */
       const options = {
-        template_id: req.body,
-        output_format: 'jpg',
-        max_width: 200,
+        templateId: req.body,
+        outputFormat: 'jpg',
+        maxWidth: 200,
       };
 
 
