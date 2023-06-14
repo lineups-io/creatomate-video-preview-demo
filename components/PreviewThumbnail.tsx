@@ -71,7 +71,7 @@ const PreviewThumbnail = ({ id, name }: Template) => {
       })
   }
 
-  return <Column loaded={data}>
+  return <Column loaded={data ? true : false}>
     <Container>
       {data ? <img src={data.url} /> : <Button onClick={fetchPreview}>Show Preview</Button>}
       <Link href={`/templates/${id}`}>
