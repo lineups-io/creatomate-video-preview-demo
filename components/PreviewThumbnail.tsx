@@ -57,27 +57,9 @@ const Button = styled.div`
 `
 
 const PreviewThumbnail = ({ id, name }: Template) => {
-  const [data, setData] = useState<Render>()
-
-  const fetchPreview = () => {
-    if (data) return
-
-    fetch('/api/renders', {
-      method: 'POST',
-      body: id,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-      })
-      .catch(error => {
-        console.error(error)
-      })
-  }
-
-  return <Column loaded={data ? true : false}>
+  return <Column loaded={true}>
     <Container>
-      {data ? <img src={data.url} /> : <Button onClick={fetchPreview}>Show Preview</Button>}
+      <img src={`https://creatomate.com/files/previews/${id}`} />
       <Link href={`/templates/${id}`}>
         <Text>{name}</Text>
       </Link>
