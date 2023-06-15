@@ -56,8 +56,6 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   const variables = pickFromObjectTree(props.preview.state)
   // TODO: dedup variables with the same name
   // TODO: handle variables with image type
-  console.log('state', props.preview.state)
-  console.log('dynamic variables', variables)
 
   return (
     <div>
