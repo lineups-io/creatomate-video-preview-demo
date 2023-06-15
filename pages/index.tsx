@@ -19,7 +19,7 @@ const Column = styled.div`
 `
 
 export default function Home() {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Home() {
   }, [])
 
   if (isLoading) return <p>Loading...</p>
-  if (!data) return <p>No templates</p>
+  if (data.length === 0) return <p>No templates</p>
 
   return (
     <div>
