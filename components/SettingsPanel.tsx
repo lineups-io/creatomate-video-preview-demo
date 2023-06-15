@@ -20,7 +20,7 @@ interface Variable {
 }
 
 const pickFromObjectTree = (obj: any): Variable[] => {
-  if (obj.dynamic) {
+  if (obj.dynamic && ['text', 'image'].indexOf(obj.type) > -1) {
     return [
       {
         id: obj.id,
@@ -31,6 +31,9 @@ const pickFromObjectTree = (obj: any): Variable[] => {
     ]
 
   } else {
+    if (obj.dynamic && ['text', 'image'].indexOf(obj.type) === -1) {
+      console.warn('Dynamic variables are only supported for text and image elements, but found', obj)
+    }
     return Object.keys(obj).reduce((acc: Variable[], key: string) => {
       const next = obj[key]
       if (Object(next) === next) {
