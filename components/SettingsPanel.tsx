@@ -13,6 +13,7 @@ interface SettingsPanelProps {
 }
 
 interface Variable {
+  id: string;
   name: string;
   type: 'text' | 'image';
   text?: string;
@@ -22,6 +23,7 @@ const pickFromObjectTree = (obj: any): Variable[] => {
   if (obj.dynamic) {
     return [
       {
+        id: obj.id,
         name: obj.name,
         type: obj.type,
         text: obj.text,
@@ -60,11 +62,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   return (
     <div>
       {variables.map(variable =>
-        <TextInput key={variable.name}
-          placeholder={variable.text}
-          onFocus={() => ensureElementVisibility(props.preview, variable.name, 0)}
-          onChange={(e) => setPropertyValue(props.preview, variable.name, e.target.value, modificationsRef.current)}
-        />
+        <div key={variable.id}>
+          <label htmlFor={variable.id}>{variable.name}</label>
+          <TextInput
+            id={variable.id}
+            placeholder={variable.text}
+            onFocus={() => ensureElementVisibility(props.preview, variable.name, 0)}
+            onChange={(e) => setPropertyValue(props.preview, variable.name, e.target.value, modificationsRef.current)}
+          />
+        </div>
       )}
 
       {slideElements?.map((slideElement, i) => {
