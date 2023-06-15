@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import Link from 'next/link';
 
+import { Template } from '../components/PreviewEditor'
+
 const PreviewThumbnail = dynamic(() => import('../components/PreviewThumbnail'), { ssr: false });
 
 const Column = styled.div`
@@ -19,8 +21,8 @@ const Column = styled.div`
 `
 
 export default function Home() {
-  const [data, setData] = useState([])
-  const [isLoading, setLoading] = useState(false)
+  const [data, setData] = useState<Template[]>([])
+  const [isLoading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     setLoading(true)
